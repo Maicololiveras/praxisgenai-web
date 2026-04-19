@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRAXISGENAI Web Platform — Presentación</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@600;700;800;900&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --primary: #0A2540;
+    --blue: #2563EB;
+    --green: #10B981;
+    --amber: #F59E0B;
+    --red: #EF4444;
+    --bg-light: #F8FAFC;
+    --bg-dark: #0F172A;
+    --glass: rgba(255,255,255,0.08);
+    --glass-border: rgba(255,255,255,0.12);
+    --shadow: 0 4px 30px rgba(0,0,0,0.12);
+    --shadow-lg: 0 20px 60px rgba(0,0,0,0.2);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-light);
+    color: #334155;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(10,37,64,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 0 2rem;
+    transition: all 0.3s ease;
+  }
+  .nav-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800; font-size: 1.1rem; color: #fff;
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--blue); }
+  .nav-links { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7); text-decoration: none;
+    font-size: 0.78rem; font-weight: 500;
+    padding: 0.4rem 0.7rem; border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+  /* SECTIONS */
+  section { padding: 6rem 2rem; position: relative; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 800; letter-spacing: -1px;
+    margin-bottom: 0.5rem;
+  }
+  .section-subtitle {
+    font-size: 1.05rem; color: #64748B;
+    max-width: 640px; margin-bottom: 3rem;
+  }
+  .dark-section { background: var(--bg-dark); color: #E2E8F0; }
+  .dark-section .section-subtitle { color: #94A3B8; }
+  .dark-section .section-title { color: #F1F5F9; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--primary) 0%, #0F172A 40%, #1E293B 100%);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; color: #fff;
+    position: relative; overflow: hidden;
+  }
+  #hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(37,99,235,0.15) 0%, transparent 70%);
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 2rem; }
+  .hero-badge {
+    display: inline-block; padding: 0.4rem 1.2rem;
+    border: 1px solid rgba(37,99,235,0.4);
+    border-radius: 999px; font-size: 0.8rem; font-weight: 600;
+    color: var(--blue); margin-bottom: 1.5rem;
+    background: rgba(37,99,235,0.08);
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .hero-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.2rem);
+    font-weight: 900; letter-spacing: -2px;
+    line-height: 1.1; margin-bottom: 1.2rem;
+  }
+  .hero-title .accent { color: var(--blue); }
+  .hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: #94A3B8; max-width: 680px; margin: 0 auto 2rem;
+    font-weight: 400; line-height: 1.7;
+  }
+  .hero-cta {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.9rem 2.2rem; background: var(--blue);
+    color: #fff; border-radius: 10px; font-weight: 600;
+    text-decoration: none; font-size: 0.95rem;
+    transition: all 0.3s; border: none; cursor: pointer;
+    box-shadow: 0 4px 20px rgba(37,99,235,0.35);
+  }
+  .hero-cta:hover { background: #1D4ED8; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(37,99,235,0.45); }
+
+  /* Dashboard CSS Art */
+  .dashboard-art {
+    margin-top: 3rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px; padding: 1.5rem;
+    max-width: 700px; margin-left: auto; margin-right: auto;
+    backdrop-filter: blur(10px);
+  }
+  .dash-topbar {
+    display: flex; gap: 0.4rem; margin-bottom: 1rem; align-items: center;
+  }
+  .dash-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dash-dot.r { background: #EF4444; }
+  .dash-dot.y { background: #F59E0B; }
+  .dash-dot.g { background: #10B981; }
+  .dash-url {
+    flex: 1; margin-left: 0.8rem;
+    background: rgba(255,255,255,0.06); border-radius: 6px;
+    padding: 0.3rem 0.8rem; font-size: 0.7rem; color: #64748B;
+  }
+  .dash-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .dash-kpi {
+    background: rgba(255,255,255,0.05); border-radius: 8px;
+    padding: 0.7rem; text-align: center;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .dash-kpi-val { font-size: 1.1rem; font-weight: 700; color: var(--green); }
+  .dash-kpi-label { font-size: 0.6rem; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; }
+  .dash-chart {
+    background: rgba(255,255,255,0.03); border-radius: 8px;
+    padding: 1rem; display: flex; align-items: flex-end;
+    gap: 4px; height: 100px; border: 1px solid rgba(255,255,255,0.06);
+  }
+  .dash-bar {
+    flex: 1; border-radius: 3px 3px 0 0;
+    background: linear-gradient(to top, var(--blue), #60A5FA);
+    animation: barGrow 1.5s ease-out forwards;
+    transform-origin: bottom;
+  }
+  @keyframes barGrow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+  /* PILLARS */
+  .pillars-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2rem;
+  }
+  .pillar-card {
+    background: #fff; border-radius: 16px; padding: 2.5rem;
+    border: 1px solid #E2E8F0;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .pillar-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .pillar-icon {
+    width: 56px; height: 56px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 1.2rem; font-weight: 700;
+  }
+  .pillar-icon.site { background: linear-gradient(135deg, #DBEAFE, #BFDBFE); color: var(--blue); }
+  .pillar-icon.dash { background: linear-gradient(135deg, #D1FAE5, #A7F3D0); color: #059669; }
+  .pillar-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;
+    color: var(--primary);
+  }
+  .pillar-card ul { list-style: none; padding: 0; }
+  .pillar-card li {
+    padding: 0.5rem 0; font-size: 0.9rem; color: #475569;
+    display: flex; align-items: flex-start; gap: 0.6rem;
+  }
+  .pillar-card li::before {
+    content: '→'; color: var(--blue); font-weight: 700;
+    flex-shrink: 0; margin-top: 1px;
+  }
+
+  /* LANDING PREVIEW */
+  .landing-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+  }
+  .landing-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px; padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+  }
+  .landing-card:hover { background: rgba(255,255,255,0.1); border-color: var(--blue); }
+  .landing-card h4 {
+    font-size: 0.95rem; font-weight: 700; color: #F1F5F9;
+    margin-bottom: 0.5rem;
+  }
+  .landing-card p { font-size: 0.82rem; color: #94A3B8; line-height: 1.5; }
+  .landing-card-icon {
+    font-size: 1.5rem; margin-bottom: 0.8rem; display: block;
+  }
+
+  /* ARCHITECTURE */
+  .arch-diagram {
+    background: #0A1628;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 2rem;
+    font-family: 'Inter', monospace;
+    overflow-x: auto;
+  }
+  .arch-layer {
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px; padding: 1rem;
+    margin-bottom: 0.8rem;
+    background: rgba(255,255,255,0.03);
+  }
+  .arch-layer-title {
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--blue); margin-bottom: 0.8rem;
+  }
+  .arch-modules {
+    display: flex; gap: 0.6rem; flex-wrap: wrap;
+  }
+  .arch-module {
+    flex: 1; min-width: 120px;
+    background: rgba(37,99,235,0.1);
+    border: 1px solid rgba(37,99,235,0.2);
+    border-radius: 8px; padding: 0.6rem 0.8rem;
+    text-align: center;
+  }
+  .arch-module strong { display: block; font-size: 0.75rem; color: #E2E8F0; }
+  .arch-module small { font-size: 0.65rem; color: #64748B; }
+  .arch-arrow {
+    text-align: center; color: rgba(255,255,255,0.25);
+    font-size: 1.2rem; padding: 0.3rem 0;
+    letter-spacing: 4px;
+  }
+
+  /* FEATURE CARDS */
+  .features-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .feature-card {
+    background: #fff; border-radius: 14px;
+    padding: 2rem; border: 1px solid #E2E8F0;
+    transition: all 0.3s; position: relative; overflow: hidden;
+  }
+  .feature-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: linear-gradient(90deg, var(--blue), var(--green));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s;
+  }
+  .feature-card:hover::before { transform: scaleX(1); }
+  .feature-card:hover { border-color: var(--blue); box-shadow: 0 8px 30px rgba(37,99,235,0.1); }
+  .feature-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; margin-bottom: 1rem;
+    background: #EFF6FF; color: var(--blue);
+  }
+  .feature-card h4 { font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+  .feature-card p { font-size: 0.85rem; color: #64748B; line-height: 1.6; }
+
+  /* DASHBOARD MOCKUP */
+  .mockup-container {
+    background: var(--primary);
+    border-radius: 16px; padding: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .mockup-topbar {
+    display: flex; gap: 6px; margin-bottom: 1.2rem;
+  }
+  .mockup-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .mockup-kpis {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem; margin-bottom: 1.2rem;
+  }
+  .mockup-kpi {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px; padding: 1rem; text-align: center;
+  }
+  .mockup-kpi .val {
+    font-size: 1.6rem; font-weight: 800;
+    background: linear-gradient(135deg, #60A5FA, var(--green));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .mockup-kpi .label { font-size: 0.7rem; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 0.3rem; }
+  .mockup-body {
+    display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;
+  }
+  .mockup-chart-area {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px; padding: 1rem;
+  }
+  .mockup-chart-title { font-size: 0.75rem; color: #94A3B8; font-weight: 600; margin-bottom: 0.8rem; }
+  .mockup-bars {
+    display: flex; align-items: flex-end; gap: 6px; height: 120px;
+  }
+  .mockup-bar {
+    flex: 1; border-radius: 4px 4px 0 0;
+    background: linear-gradient(to top, var(--blue), #60A5FA);
+    transition: all 0.3s;
+    position: relative;
+  }
+  .mockup-bar:hover { background: linear-gradient(to top, #1D4ED8, var(--blue)); }
+  .mockup-bar.alt { background: linear-gradient(to top, var(--green), #6EE7B7); }
+  .mockup-bar.alt:hover { background: linear-gradient(to top, #059669, var(--green)); }
+  .mockup-sidebar {
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .mockup-activity-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px; padding: 0.7rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .mockup-status {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .mockup-status.active { background: var(--green); box-shadow: 0 0 8px rgba(16,185,129,0.5); }
+  .mockup-status.idle { background: var(--amber); }
+  .mockup-status.error { background: var(--red); }
+  .mockup-activity-text { font-size: 0.72rem; color: #94A3B8; }
+  .mockup-activity-text strong { color: #E2E8F0; }
+
+  /* PRICING */
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem; align-items: start;
+  }
+  .price-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 2.5rem 2rem;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s;
+  }
+  .price-card:hover { border-color: var(--blue); transform: translateY(-4px); }
+  .price-card.featured {
+    border-color: var(--blue);
+    background: rgba(37,99,235,0.08);
+    position: relative;
+    box-shadow: 0 0 40px rgba(37,99,235,0.15);
+  }
+  .price-card.featured::before {
+    content: 'MAS POPULAR';
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--blue); color: #fff;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 1px;
+    padding: 0.3rem 1rem; border-radius: 999px;
+  }
+  .price-card h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem; font-weight: 700; color: #F1F5F9;
+    margin-bottom: 0.5rem;
+  }
+  .price-amount {
+    font-size: 2.5rem; font-weight: 900; color: #fff;
+    margin: 1rem 0 0.3rem;
+  }
+  .price-amount span { font-size: 0.9rem; font-weight: 400; color: #64748B; }
+  .price-range { font-size: 0.8rem; color: #64748B; margin-bottom: 1.5rem; }
+  .price-features { list-style: none; text-align: left; margin-bottom: 2rem; }
+  .price-features li {
+    padding: 0.5rem 0; font-size: 0.85rem; color: #CBD5E1;
+    display: flex; align-items: center; gap: 0.6rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .price-features li::before { content: '✓'; color: var(--green); font-weight: 700; }
+  .price-btn {
+    display: inline-block; padding: 0.75rem 2rem;
+    border-radius: 10px; font-weight: 600; font-size: 0.9rem;
+    text-decoration: none; transition: all 0.3s;
+    border: 2px solid var(--blue); color: var(--blue);
+    background: transparent; cursor: pointer;
+  }
+  .price-btn:hover { background: var(--blue); color: #fff; }
+  .price-btn.filled { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .price-btn.filled:hover { background: #1D4ED8; }
+
+  /* TECH STACK */
+  .stack-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .stack-item {
+    display: flex; align-items: center; gap: 1rem;
+    background: #fff; border-radius: 10px; padding: 1rem 1.2rem;
+    border: 1px solid #E2E8F0; transition: all 0.3s;
+  }
+  .stack-item:hover { border-color: var(--blue); box-shadow: 0 4px 15px rgba(37,99,235,0.08); }
+  .stack-label {
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; color: #94A3B8; min-width: 80px;
+  }
+  .stack-value { font-size: 0.85rem; font-weight: 600; color: var(--primary); }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 6px; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--blue), var(--green));
+  }
+  .timeline-item {
+    position: relative; margin-bottom: 2rem; padding-left: 1.5rem;
+  }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -2rem; top: 4px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--blue); border: 3px solid var(--bg-light);
+    box-shadow: 0 0 0 2px var(--blue);
+  }
+  .timeline-item h4 { font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.3rem; }
+  .timeline-item .phase { font-size: 0.75rem; color: var(--blue); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .timeline-item p { font-size: 0.85rem; color: #64748B; margin-top: 0.3rem; }
+
+  /* INTEGRATION */
+  .integration-visual {
+    display: flex; align-items: center; justify-content: center;
+    gap: 1rem; flex-wrap: wrap; padding: 2rem 0;
+  }
+  .int-box {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px; padding: 2rem;
+    text-align: center; min-width: 220px;
+    flex: 1; max-width: 320px;
+    backdrop-filter: blur(10px);
+  }
+  .int-box h4 { font-size: 1.1rem; font-weight: 700; color: #F1F5F9; margin-bottom: 0.5rem; }
+  .int-box p { font-size: 0.82rem; color: #94A3B8; }
+  .int-arrow {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0.3rem; color: #64748B; font-size: 0.7rem; font-weight: 600;
+  }
+  .int-arrow-line {
+    width: 60px; height: 2px; background: linear-gradient(90deg, var(--blue), var(--green));
+    position: relative;
+  }
+  .int-arrow-line::after {
+    content: ''; position: absolute; right: -4px; top: -4px;
+    width: 0; height: 0;
+    border-left: 6px solid var(--green);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+  }
+
+  /* BUSINESS MODEL */
+  .biz-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .biz-card {
+    background: #fff; border-radius: 12px; padding: 1.8rem;
+    border: 1px solid #E2E8F0; text-align: center;
+    transition: all 0.3s;
+  }
+  .biz-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .biz-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 0.3rem; }
+  .biz-card .biz-amount {
+    font-size: 1.4rem; font-weight: 800; color: var(--blue);
+    margin: 0.5rem 0;
+  }
+  .biz-card p { font-size: 0.8rem; color: #64748B; }
+  .biz-flow {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0.5rem; margin-top: 2rem; flex-wrap: wrap;
+  }
+  .biz-flow-step {
+    background: linear-gradient(135deg, var(--blue), #1D4ED8);
+    color: #fff; padding: 0.6rem 1.4rem; border-radius: 999px;
+    font-size: 0.8rem; font-weight: 600;
+  }
+  .biz-flow-arrow { color: var(--blue); font-weight: 700; font-size: 1.2rem; }
+
+  /* FOOTER */
+  footer {
+    background: var(--primary); color: #94A3B8;
+    padding: 3rem 2rem; text-align: center;
+  }
+  footer .footer-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem; font-weight: 800; color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  footer .footer-brand span { color: var(--blue); }
+  footer .footer-tagline { font-size: 0.9rem; font-style: italic; margin-bottom: 1rem; }
+  footer .footer-copy { font-size: 0.75rem; color: #475569; }
+  footer a { color: var(--blue); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE — see extended breakpoints below */
+
+  /* Glow effect for section separators */
+  .glow-divider {
+    height: 1px; border: none; margin: 0;
+    background: linear-gradient(90deg, transparent, var(--blue), transparent);
+    opacity: 0.3;
+  }
+
+  /* Pulse animation for status indicators */
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .pulse { animation: pulse 2s ease-in-out infinite; }
+
+  /* ========== HAMBURGER MENU ========== */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 36px; height: 36px;
+    background: none; border: none; cursor: pointer;
+    padding: 0; z-index: 1100;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: #fff; border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .hamburger span:nth-child(1) { margin-bottom: 5px; }
+  .hamburger span:nth-child(3) { margin-top: 5px; }
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Mobile nav overlay */
+  .mobile-nav-overlay {
+    position: fixed; inset: 0; z-index: 1050;
+    background: rgba(10, 37, 64, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0.5rem;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .mobile-nav-overlay.open {
+    opacity: 1; visibility: visible;
+  }
+  .mobile-nav-overlay a {
+    color: rgba(255,255,255,0.85); text-decoration: none;
+    font-size: 1.15rem; font-weight: 600;
+    padding: 0.8rem 2rem; border-radius: 8px;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .mobile-nav-overlay a:hover {
+    color: #fff; background: rgba(14, 165, 233, 0.15);
+  }
+
+  /* Hero CTA buttons stacking */
+  .hero-cta-group {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  }
+
+  /* ========== ADDITIONAL BREAKPOINTS ========== */
+
+  /* Small phones */
+  @media (max-width: 480px) {
+    section { padding: 3rem 1rem; }
+    .hero-content { padding: 1rem; }
+    .hero-badge { font-size: 0.7rem; padding: 0.3rem 0.8rem; }
+    .dash-grid { grid-template-columns: 1fr 1fr; }
+    .dash-kpi-val { font-size: 0.9rem; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .pillar-card { padding: 1.5rem; }
+    .features-grid { grid-template-columns: 1fr; }
+    .landing-grid { grid-template-columns: 1fr; }
+    .stack-grid { grid-template-columns: 1fr; }
+    .biz-grid { grid-template-columns: 1fr; }
+    .biz-flow { flex-direction: column; gap: 0.3rem; }
+    .biz-flow-arrow { transform: rotate(90deg); }
+    .arch-modules { flex-direction: column; }
+    .arch-module { min-width: unset; }
+    .mockup-kpis { grid-template-columns: 1fr 1fr; }
+    .mockup-kpi .val { font-size: 1.2rem; }
+    .price-card { padding: 1.8rem 1.2rem; }
+    .price-amount { font-size: 2rem; }
+    .int-box { min-width: unset; padding: 1.2rem; }
+    .hero-cta { padding: 0.75rem 1.5rem; font-size: 0.85rem; }
+  }
+
+  /* Large phones */
+  @media (max-width: 640px) {
+    .pillars-grid { grid-template-columns: 1fr; }
+    .features-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+    .landing-grid { grid-template-columns: 1fr; }
+    .mockup-body { grid-template-columns: 1fr; }
+    .mockup-bars { height: 90px; }
+    .dashboard-art { padding: 1rem; }
+  }
+
+  /* Tablets — extend existing 768px */
+  @media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .nav-links { display: none !important; }
+    section { padding: 4rem 1.2rem; }
+    .mockup-kpis { grid-template-columns: repeat(2, 1fr); }
+    .mockup-body { grid-template-columns: 1fr; }
+    .dash-grid { grid-template-columns: repeat(2, 1fr); }
+    .integration-visual { flex-direction: column; }
+    .int-arrow { transform: rotate(90deg); }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .stack-grid { grid-template-columns: 1fr 1fr; }
+    .biz-grid { grid-template-columns: 1fr 1fr; }
+    .hero-cta-group { flex-direction: column; align-items: center; }
+  }
+
+  /* Small laptops */
+  @media (max-width: 1024px) {
+    .pillars-grid { grid-template-columns: 1fr 1fr; }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    nav { padding: 0 1.5rem; }
+    .nav-links a { font-size: 0.72rem; padding: 0.35rem 0.5rem; }
+  }
+
+  /* ========== JARVIS CHAT WIDGET ========== */
+  .jarvis-fab {
+    position: fixed; bottom: 24px; right: 24px; z-index: 9000;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    box-shadow: 0 4px 20px rgba(14, 165, 233, 0.4);
+    transition: all 0.3s ease;
+  }
+  .jarvis-fab:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 30px rgba(14, 165, 233, 0.55);
+  }
+  .jarvis-fab.hidden { display: none; }
+
+  .jarvis-panel {
+    position: fixed; bottom: 96px; right: 24px; z-index: 9001;
+    width: 350px; height: 500px;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(14, 165, 233, 0.3);
+    border-radius: 16px;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    opacity: 0; visibility: hidden;
+    transform: translateY(20px) scale(0.95);
+    transition: all 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .jarvis-panel.open {
+    opacity: 1; visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .jarvis-header {
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    padding: 0.9rem 1.2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .jarvis-header-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; font-size: 0.9rem; color: #fff;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .jarvis-header-close {
+    background: rgba(255,255,255,0.2); border: none;
+    color: #fff; width: 28px; height: 28px; border-radius: 50%;
+    cursor: pointer; font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .jarvis-header-close:hover { background: rgba(255,255,255,0.35); }
+
+  .jarvis-messages {
+    flex: 1; overflow-y: auto; padding: 1rem;
+    display: flex; flex-direction: column; gap: 0.8rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(14,165,233,0.3) transparent;
+  }
+  .jarvis-messages::-webkit-scrollbar { width: 4px; }
+  .jarvis-messages::-webkit-scrollbar-thumb { background: rgba(14,165,233,0.3); border-radius: 4px; }
+
+  .jarvis-msg {
+    max-width: 85%; padding: 0.65rem 0.9rem;
+    border-radius: 12px; font-size: 0.82rem;
+    line-height: 1.5; word-wrap: break-word;
+  }
+  .jarvis-msg.user {
+    align-self: flex-end;
+    background: rgba(14, 165, 233, 0.25);
+    color: #e0f2fe;
+    border-bottom-right-radius: 4px;
+  }
+  .jarvis-msg.bot {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.07);
+    color: #cbd5e1;
+    border-bottom-left-radius: 4px;
+  }
+  .jarvis-msg.bot strong { color: #e2e8f0; }
+  .jarvis-msg.bot ul, .jarvis-msg.bot ol {
+    margin: 0.3rem 0; padding-left: 1.2rem;
+  }
+  .jarvis-msg.bot li { margin-bottom: 0.2rem; }
+  .jarvis-msg a.jarvis-download {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    color: #0ea5e9; text-decoration: none;
+    font-weight: 600; margin-top: 0.4rem;
+  }
+  .jarvis-msg a.jarvis-download:hover { text-decoration: underline; }
+
+  .jarvis-typing {
+    align-self: flex-start;
+    display: none; align-items: center; gap: 4px;
+    padding: 0.65rem 0.9rem;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 12px; border-bottom-left-radius: 4px;
+  }
+  .jarvis-typing.visible { display: flex; }
+  .jarvis-typing-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #64748b;
+    animation: jarvisTyping 1.4s ease-in-out infinite;
+  }
+  .jarvis-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .jarvis-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes jarvisTyping {
+    0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+    30% { opacity: 1; transform: translateY(-4px); }
+  }
+
+  .jarvis-input-area {
+    display: flex; gap: 0.5rem;
+    padding: 0.8rem;
+    border-top: 1px solid rgba(14, 165, 233, 0.15);
+    flex-shrink: 0;
+    background: rgba(15, 23, 42, 0.6);
+  }
+  .jarvis-input {
+    flex: 1; background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    border-radius: 10px; padding: 0.6rem 0.8rem;
+    color: #e2e8f0; font-size: 0.82rem;
+    font-family: 'Inter', sans-serif;
+    resize: none; outline: none;
+    min-height: 38px; max-height: 80px;
+    transition: border-color 0.2s;
+  }
+  .jarvis-input:focus { border-color: rgba(14, 165, 233, 0.5); }
+  .jarvis-input::placeholder { color: #475569; }
+
+  .jarvis-send {
+    width: 38px; height: 38px; border-radius: 10px;
+    background: linear-gradient(135deg, #0ea5e9, #6366f1);
+    border: none; cursor: pointer; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; transition: all 0.2s;
+    flex-shrink: 0; align-self: flex-end;
+  }
+  .jarvis-send:hover { transform: scale(1.05); }
+  .jarvis-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* Jarvis chat responsive */
+  @media (max-width: 480px) {
+    .jarvis-panel {
+      width: calc(100vw - 16px); height: calc(100vh - 100px);
+      bottom: 8px; right: 8px;
+      border-radius: 12px;
+    }
+    .jarvis-fab { bottom: 16px; right: 16px; width: 52px; height: 52px; font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">PRAXIS<span>GEN</span>AI</div>
+    <div class="nav-links">
+      <a href="#hero">Inicio</a>
+      <a href="#pillars">Pilares</a>
+      <a href="#landing">Landing</a>
+      <a href="#architecture">Arquitectura</a>
+      <a href="#features">Features</a>
+      <a href="#metrics">Métricas</a>
+      <a href="#pricing">Precios</a>
+      <a href="#tech">Tech Stack</a>
+      <a href="#roadmap">Roadmap</a>
+      <a href="#integration">Integración</a>
+      <a href="#business">Negocio</a>
+    </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE NAV OVERLAY -->
+<div class="mobile-nav-overlay" id="mobileNav">
+  <a href="#hero">Inicio</a>
+  <a href="#pillars">Pilares</a>
+  <a href="#landing">Landing</a>
+  <a href="#architecture">Arquitectura</a>
+  <a href="#features">Features</a>
+  <a href="#metrics">Métricas</a>
+  <a href="#pricing">Precios</a>
+  <a href="#tech">Tech Stack</a>
+  <a href="#roadmap">Roadmap</a>
+  <a href="#integration">Integración</a>
+  <a href="#business">Negocio</a>
+</div>
+
+<!-- 1. HERO SECTION -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Web Platform 2026</div>
+    <h1 class="hero-title">PRAXIS<span class="accent">GEN</span>AI<br>Web Platform</h1>
+    <p class="hero-subtitle">Monitoreo inteligente de agentes en tiempo real. La cara pública de PRAXISGENAI + dashboard de monitoreo 24/7 para agentes de IA desplegados.</p>
+    <a href="#pillars" class="hero-cta">Explorar Plataforma ↓</a>
+
+    <!-- Dashboard CSS Art -->
+    <div class="dashboard-art">
+      <div class="dash-topbar">
+        <div class="dash-dot r"></div>
+        <div class="dash-dot y"></div>
+        <div class="dash-dot g"></div>
+        <div class="dash-url">dashboard.praxisgenai.com/monitoring</div>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-kpi"><div class="dash-kpi-val">12</div><div class="dash-kpi-label">Agentes</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-val">847</div><div class="dash-kpi-label">Conversaciones</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-val">1.2s</div><div class="dash-kpi-label">Respuesta</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-val">94.2%</div><div class="dash-kpi-label">Satisfacción</div></div>
+      </div>
+      <div class="dash-chart">
+        <div class="dash-bar" style="height:40%"></div>
+        <div class="dash-bar" style="height:65%"></div>
+        <div class="dash-bar" style="height:55%"></div>
+        <div class="dash-bar" style="height:80%"></div>
+        <div class="dash-bar" style="height:70%"></div>
+        <div class="dash-bar" style="height:90%"></div>
+        <div class="dash-bar" style="height:75%"></div>
+        <div class="dash-bar" style="height:85%"></div>
+        <div class="dash-bar" style="height:60%"></div>
+        <div class="dash-bar" style="height:95%"></div>
+        <div class="dash-bar" style="height:72%"></div>
+        <div class="dash-bar" style="height:88%"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. TWO PILLARS -->
+<section id="pillars">
+  <div class="container">
+    <h2 class="section-title fade-up">Dos Pilares, Una Plataforma</h2>
+    <p class="section-subtitle fade-up">La Web Platform combina la presencia pública con el poder del monitoreo en tiempo real.</p>
+    <div class="pillars-grid">
+      <div class="pillar-card fade-up">
+        <div class="pillar-icon site">WEB</div>
+        <h3>Sitio Público (Landing Page)</h3>
+        <ul>
+          <li>Presentación de empresa y branding corporativo</li>
+          <li>Catálogo de productos — 5 tipos de agentes IA</li>
+          <li>Planes de precios: Basic $40-60, Professional $80-150, Enterprise $200-1000+</li>
+          <li>Casos de estudio y testimonios de clientes</li>
+          <li>Flujo de contacto y onboarding automatizado</li>
+          <li>Blog y sección de recursos educativos</li>
+        </ul>
+      </div>
+      <div class="pillar-card fade-up">
+        <div class="pillar-icon dash">MON</div>
+        <h3>Dashboard de Monitoreo</h3>
+        <ul>
+          <li>Monitoreo de estado de agentes en tiempo real</li>
+          <li>Logs de conversaciones y analytics avanzados</li>
+          <li>Métricas de rendimiento por agente</li>
+          <li>Gestión multi-tenant con datos aislados</li>
+          <li>Sistema de alertas (downtime, degradación, presupuesto)</li>
+          <li>Capacidades de exportación CSV/PDF</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="glow-divider">
+
+<!-- 3. LANDING PAGE SECTIONS -->
+<section id="landing" class="dark-section">
+  <div class="container">
+    <h2 class="section-title fade-up">Landing Page — Secciones</h2>
+    <p class="section-subtitle fade-up">Vista previa de las secciones que compondrán la landing page pública de PRAXISGENAI.</p>
+    <div class="landing-grid">
+      <div class="landing-card fade-up">
+        <span class="landing-card-icon">&#9889;</span>
+        <h4>Hero con CTA</h4>
+        <p>Propuesta de valor clara, video de fondo y llamado a acción directo para agendar demo.</p>
+      </div>
+      <div class="landing-card fade-up">
+        <span class="landing-card-icon">&#128161;</span>
+        <h4>¿Qué es PRAXISGENAI?</h4>
+        <p>Explicación clara del producto: agentes IA que trabajan 24/7 para tu negocio.</p>
+      </div>
+      <div class="landing-card fade-up">
+        <span class="landing-card-icon">&#129302;</span>
+        <h4>Productos (5 Agentes)</h4>
+        <p>Grid de agentes: Sales, Support, Automation, Internal y Custom con descripción de cada uno.</p>
+      </div>
+      <div class="landing-card fade-up">
+        <span class="landing-card-icon">&#128736;</span>
+        <h4>Cómo Funciona</h4>
+        <p>Proceso de 3 pasos: 1) Definí tu agente, 2) Entrenalo, 3) Desplegalo y monitoreá.</p>
+      </div>
+      <div class="landing-card fade-up">
+        <span class="landing-card-icon">&#128176;</span>
+        <h4>Tabla de Precios</h4>
+        <p>3 tiers comparativos con features destacados y CTA por plan.</p>
+      </div>
+      <div class="landing-card fade-up">
+        <span class="landing-card-icon">&#11088;</span>
+        <h4>Testimonios</h4>
+        <p>Carousel de clientes satisfechos con foto, nombre, empresa y quote.</p>
+      </div>
+      <div class="landing-card fade-up">
+        <span class="landing-card-icon">&#10067;</span>
+        <h4>FAQ</h4>
+        <p>Preguntas frecuentes con accordion: implementación, seguridad, costos, soporte.</p>
+      </div>
+      <div class="landing-card fade-up">
+        <span class="landing-card-icon">&#128233;</span>
+        <h4>Contacto / Demo</h4>
+        <p>Formulario de solicitud de demo con campos inteligentes y calendario integrado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. DASHBOARD ARCHITECTURE -->
+<section id="architecture">
+  <div class="container">
+    <h2 class="section-title fade-up">Arquitectura del Dashboard</h2>
+    <p class="section-subtitle fade-up">Stack completo desde el frontend hasta la base de datos, diseñado para escalar.</p>
+    <div class="arch-diagram fade-up">
+      <div class="arch-layer">
+        <div class="arch-layer-title">Frontend — Web Platform (Next.js)</div>
+        <div class="arch-modules">
+          <div class="arch-module">
+            <strong>Public Site</strong>
+            <small>Landing Page</small>
+          </div>
+          <div class="arch-module">
+            <strong>Agents Status</strong>
+            <small>Real-time Grid</small>
+          </div>
+          <div class="arch-module">
+            <strong>Logs Viewer</strong>
+            <small>Live Feed</small>
+          </div>
+          <div class="arch-module">
+            <strong>Metrics</strong>
+            <small>KPIs & Charts</small>
+          </div>
+          <div class="arch-module">
+            <strong>Alerts</strong>
+            <small>Rules & Notifs</small>
+          </div>
+        </div>
+      </div>
+      <div class="arch-arrow">▼ ▼ ▼</div>
+      <div class="arch-layer">
+        <div class="arch-layer-title">API Gateway — REST + WebSocket</div>
+        <div class="arch-modules">
+          <div class="arch-module">
+            <strong>Auth Service</strong>
+            <small>JWT / OAuth</small>
+          </div>
+          <div class="arch-module">
+            <strong>Agent Service</strong>
+            <small>Status & Config</small>
+          </div>
+          <div class="arch-module">
+            <strong>Analytics Service</strong>
+            <small>Metrics & Reports</small>
+          </div>
+          <div class="arch-module">
+            <strong>Alert Service</strong>
+            <small>Rules & Notifications</small>
+          </div>
+        </div>
+      </div>
+      <div class="arch-arrow">▼ ▼ ▼</div>
+      <div class="arch-layer">
+        <div class="arch-layer-title">Data Layer</div>
+        <div class="arch-modules">
+          <div class="arch-module">
+            <strong>PostgreSQL</strong>
+            <small>Supabase</small>
+          </div>
+          <div class="arch-module">
+            <strong>Redis</strong>
+            <small>Cache & Pub/Sub</small>
+          </div>
+          <div class="arch-module">
+            <strong>Object Storage</strong>
+            <small>Logs & Media</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="glow-divider">
+
+<!-- 5. DASHBOARD FEATURES -->
+<section id="features" class="dark-section">
+  <div class="container">
+    <h2 class="section-title fade-up">Features del Dashboard</h2>
+    <p class="section-subtitle fade-up">Cada feature diseñado para dar visibilidad total sobre tus agentes desplegados.</p>
+    <div class="features-grid" style="--card-bg: rgba(255,255,255,0.05);">
+      <div class="feature-card fade-up" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);">
+        <div class="feature-icon" style="background: rgba(37,99,235,0.15);">&#9673;</div>
+        <h4 style="color:#F1F5F9;">Agent Overview</h4>
+        <p style="color:#94A3B8;">Grid de todos los agentes desplegados con indicadores de estado: activo, idle, error. Vista consolidada para decisiones rápidas.</p>
+      </div>
+      <div class="feature-card fade-up" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);">
+        <div class="feature-icon" style="background: rgba(16,185,129,0.15); color: var(--green);">&#9993;</div>
+        <h4 style="color:#F1F5F9;">Live Conversation Logs</h4>
+        <p style="color:#94A3B8;">Feed en tiempo real de conversaciones de agentes con búsqueda, filtros por fecha, agente, sentimiento y cliente.</p>
+      </div>
+      <div class="feature-card fade-up" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);">
+        <div class="feature-icon" style="background: rgba(245,158,11,0.15); color: var(--amber);">&#9783;</div>
+        <h4 style="color:#F1F5F9;">Performance Metrics</h4>
+        <p style="color:#94A3B8;">Charts para response time, satisfaction score, resolution rate y cost per conversation. Comparativas por período.</p>
+      </div>
+      <div class="feature-card fade-up" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);">
+        <div class="feature-icon" style="background: rgba(37,99,235,0.15);">&#9776;</div>
+        <h4 style="color:#F1F5F9;">Usage Analytics</h4>
+        <p style="color:#94A3B8;">Conversaciones por día/semana/mes, horas pico, temas populares. Insights accionables para optimización.</p>
+      </div>
+      <div class="feature-card fade-up" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);">
+        <div class="feature-icon" style="background: rgba(239,68,68,0.15); color: var(--red);">&#9888;</div>
+        <h4 style="color:#F1F5F9;">Alert Management</h4>
+        <p style="color:#94A3B8;">Reglas configurables: downtime > 5min, satisfacción < 80%, presupuesto excedido. Notificaciones por email, Slack, webhook.</p>
+      </div>
+      <div class="feature-card fade-up" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);">
+        <div class="feature-icon" style="background: rgba(16,185,129,0.15); color: var(--green);">&#9874;</div>
+        <h4 style="color:#F1F5F9;">Multi-Tenant View</h4>
+        <p style="color:#94A3B8;">Switch entre organizaciones cliente con datos aislados. Cada tenant ve solo sus agentes, métricas y configuraciones.</p>
+      </div>
+      <div class="feature-card fade-up" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);">
+        <div class="feature-icon" style="background: rgba(37,99,235,0.15);">&#8681;</div>
+        <h4 style="color:#F1F5F9;">Export & Reports</h4>
+        <p style="color:#94A3B8;">Descarga de reportes CSV/PDF. Reportes programados por email. Dashboards compartibles con stakeholders.</p>
+      </div>
+      <div class="feature-card fade-up" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08);">
+        <div class="feature-icon" style="background: rgba(245,158,11,0.15); color: var(--amber);">&#9881;</div>
+        <h4 style="color:#F1F5F9;">Agent Configuration</h4>
+        <p style="color:#94A3B8;">Ver/editar settings de agentes remotamente. Permisos por rol: admin full access, viewer read-only.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. MONITORING METRICS MOCKUP -->
+<section id="metrics">
+  <div class="container">
+    <h2 class="section-title fade-up">Dashboard — Vista de Monitoreo</h2>
+    <p class="section-subtitle fade-up">Mockup del dashboard de monitoreo con métricas clave y actividad en tiempo real.</p>
+    <div class="mockup-container fade-up">
+      <div class="mockup-topbar">
+        <div class="mockup-dot" style="background:#EF4444;"></div>
+        <div class="mockup-dot" style="background:#F59E0B;"></div>
+        <div class="mockup-dot" style="background:#10B981;"></div>
+      </div>
+      <div class="mockup-kpis">
+        <div class="mockup-kpi">
+          <div class="val">12</div>
+          <div class="label">Agentes Activos</div>
+        </div>
+        <div class="mockup-kpi">
+          <div class="val">847</div>
+          <div class="label">Conversaciones Hoy</div>
+        </div>
+        <div class="mockup-kpi">
+          <div class="val">1.2s</div>
+          <div class="label">Tiempo de Respuesta</div>
+        </div>
+        <div class="mockup-kpi">
+          <div class="val">94.2%</div>
+          <div class="label">Satisfacción</div>
+        </div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-chart-area">
+          <div class="mockup-chart-title">Conversaciones por Hora (últimas 24h)</div>
+          <div class="mockup-bars">
+            <div class="mockup-bar" style="height:25%"></div>
+            <div class="mockup-bar" style="height:18%"></div>
+            <div class="mockup-bar" style="height:12%"></div>
+            <div class="mockup-bar alt" style="height:8%"></div>
+            <div class="mockup-bar alt" style="height:15%"></div>
+            <div class="mockup-bar" style="height:35%"></div>
+            <div class="mockup-bar" style="height:55%"></div>
+            <div class="mockup-bar" style="height:72%"></div>
+            <div class="mockup-bar" style="height:88%"></div>
+            <div class="mockup-bar" style="height:95%"></div>
+            <div class="mockup-bar" style="height:82%"></div>
+            <div class="mockup-bar alt" style="height:78%"></div>
+            <div class="mockup-bar" style="height:90%"></div>
+            <div class="mockup-bar" style="height:85%"></div>
+            <div class="mockup-bar alt" style="height:70%"></div>
+            <div class="mockup-bar" style="height:65%"></div>
+            <div class="mockup-bar" style="height:58%"></div>
+            <div class="mockup-bar" style="height:50%"></div>
+            <div class="mockup-bar alt" style="height:42%"></div>
+            <div class="mockup-bar" style="height:38%"></div>
+            <div class="mockup-bar" style="height:45%"></div>
+            <div class="mockup-bar alt" style="height:35%"></div>
+            <div class="mockup-bar" style="height:28%"></div>
+            <div class="mockup-bar" style="height:22%"></div>
+          </div>
+        </div>
+        <div class="mockup-sidebar">
+          <div style="font-size:0.75rem;color:#94A3B8;font-weight:600;margin-bottom:0.3rem;">Actividad Reciente</div>
+          <div class="mockup-activity-item">
+            <div class="mockup-status active pulse"></div>
+            <div class="mockup-activity-text"><strong>Sales Agent #3</strong> — 23 conv. activas</div>
+          </div>
+          <div class="mockup-activity-item">
+            <div class="mockup-status active pulse"></div>
+            <div class="mockup-activity-text"><strong>Support Agent #1</strong> — 15 conv. activas</div>
+          </div>
+          <div class="mockup-activity-item">
+            <div class="mockup-status idle"></div>
+            <div class="mockup-activity-text"><strong>Internal Bot #2</strong> — Idle (3min)</div>
+          </div>
+          <div class="mockup-activity-item">
+            <div class="mockup-status active pulse"></div>
+            <div class="mockup-activity-text"><strong>Custom Agent #7</strong> — 8 conv. activas</div>
+          </div>
+          <div class="mockup-activity-item">
+            <div class="mockup-status error"></div>
+            <div class="mockup-activity-text"><strong>Automation #4</strong> — Error: timeout</div>
+          </div>
+          <div class="mockup-activity-item">
+            <div class="mockup-status active pulse"></div>
+            <div class="mockup-activity-text"><strong>Sales Agent #1</strong> — 31 conv. activas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="glow-divider">
+
+<!-- 7. PRICING -->
+<section id="pricing" class="dark-section">
+  <div class="container">
+    <h2 class="section-title fade-up">Planes y Precios</h2>
+    <p class="section-subtitle fade-up">Escalá según tu necesidad. Sin contratos de permanencia, sin sorpresas.</p>
+    <div class="pricing-grid">
+      <div class="price-card fade-up">
+        <h4>Basic</h4>
+        <div class="price-amount">$40<span>/mes</span></div>
+        <div class="price-range">hasta $60/mes según uso</div>
+        <ul class="price-features">
+          <li>1 Agente IA</li>
+          <li>500 conversaciones/mes</li>
+          <li>Soporte por email</li>
+          <li>Monitoreo básico</li>
+          <li>Tiempo de respuesta estándar</li>
+          <li>Reportes mensuales</li>
+        </ul>
+        <button class="price-btn">Empezar</button>
+      </div>
+      <div class="price-card featured fade-up">
+        <h4>Professional</h4>
+        <div class="price-amount">$80<span>/mes</span></div>
+        <div class="price-range">hasta $150/mes según uso</div>
+        <ul class="price-features">
+          <li>Hasta 5 Agentes IA</li>
+          <li>5,000 conversaciones/mes</li>
+          <li>Soporte prioritario</li>
+          <li>Dashboard completo</li>
+          <li>Skills personalizados</li>
+          <li>Acceso API completo</li>
+          <li>Alertas avanzadas</li>
+          <li>Analytics detallados</li>
+        </ul>
+        <button class="price-btn filled">Elegir Plan</button>
+      </div>
+      <div class="price-card fade-up">
+        <h4>Enterprise</h4>
+        <div class="price-amount">$200<span>/mes</span></div>
+        <div class="price-range">hasta $1,000+/mes según escala</div>
+        <ul class="price-features">
+          <li>Agentes ilimitados</li>
+          <li>Conversaciones ilimitadas</li>
+          <li>Soporte 24/7 dedicado</li>
+          <li>Integraciones custom</li>
+          <li>SLA garantizado</li>
+          <li>Opción on-premise</li>
+          <li>White-label disponible</li>
+          <li>Account manager dedicado</li>
+        </ul>
+        <button class="price-btn">Contactar Ventas</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. TECH STACK -->
+<section id="tech">
+  <div class="container">
+    <h2 class="section-title fade-up">Tech Stack</h2>
+    <p class="section-subtitle fade-up">Tecnologías elegidas por performance, DX y escalabilidad.</p>
+    <div class="stack-grid fade-up">
+      <div class="stack-item">
+        <span class="stack-label">Frontend</span>
+        <span class="stack-value">Next.js 14 + React 18</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-label">UI Library</span>
+        <span class="stack-value">Tailwind CSS + shadcn/ui</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-label">State</span>
+        <span class="stack-value">Zustand</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-label">Charts</span>
+        <span class="stack-value">Recharts / Chart.js</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-label">Auth</span>
+        <span class="stack-value">NextAuth.js + JWT</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-label">API</span>
+        <span class="stack-value">REST + WebSocket (real-time)</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-label">Backend</span>
+        <span class="stack-value">Node.js (NestJS)</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-label">Database</span>
+        <span class="stack-value">PostgreSQL (Supabase)</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-label">Cache</span>
+        <span class="stack-value">Redis</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-label">Hosting</span>
+        <span class="stack-value">Vercel + AWS/VPS</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-label">Monitoring</span>
+        <span class="stack-value">Custom + Grafana</span>
+      </div>
+      <div class="stack-item">
+        <span class="stack-label">CI/CD</span>
+        <span class="stack-value">GitHub Actions</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="glow-divider">
+
+<!-- 9. ROADMAP -->
+<section id="roadmap" class="dark-section">
+  <div class="container">
+    <h2 class="section-title fade-up">Roadmap de Implementación</h2>
+    <p class="section-subtitle fade-up">20 semanas desde cero hasta plataforma SaaS completa.</p>
+    <div class="timeline fade-up">
+      <div class="timeline-item">
+        <div class="phase">Fase 1 — Semanas 1-4</div>
+        <h4>Fundación</h4>
+        <p>Landing page completa + autenticación básica + vista de estado de agentes. Setup de infraestructura, CI/CD y environments.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="phase">Fase 2 — Semanas 5-8</div>
+        <h4>Dashboard MVP</h4>
+        <p>Logs de conversaciones, métricas básicas, alertas simples. WebSocket para real-time. Primeros usuarios beta.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="phase">Fase 3 — Semanas 9-12</div>
+        <h4>Analytics Completo</h4>
+        <p>Full analytics con charts interactivos, soporte multi-tenant, exportación de reportes CSV/PDF. Dashboard compartible.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="phase">Fase 4 — Semanas 13-16</div>
+        <h4>Motor de Alertas</h4>
+        <p>Engine de alertas configurable, API pública documentada, integraciones (Slack, email, webhook). Mobile responsive.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="phase">Fase 5 — Semanas 17-20</div>
+        <h4>SaaS & Scale</h4>
+        <p>Features SaaS: billing integrado, marketplace de templates, onboarding automatizado. Preparación para escala.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. INTEGRATION -->
+<section id="integration">
+  <div class="container">
+    <h2 class="section-title fade-up" style="text-align:center;">Integración con Agent OS</h2>
+    <p class="section-subtitle fade-up" style="text-align:center;margin-left:auto;margin-right:auto;">Los dos productos trabajan en sinergia: Agent OS crea y despliega, Web Platform monitorea y analiza.</p>
+    <div class="integration-visual fade-up">
+      <div class="int-box">
+        <h4>Agent OS</h4>
+        <p style="margin-bottom:0.8rem;">(Desktop Application)</p>
+        <p>Crea, configura y despliega agentes IA. Entorno de desarrollo y testing local.</p>
+      </div>
+      <div class="int-arrow">
+        <span>telemetría (gRPC/API)</span>
+        <div class="int-arrow-line"></div>
+        <div class="int-arrow-line" style="transform: rotate(180deg);"></div>
+        <span>config updates</span>
+      </div>
+      <div class="int-box" style="border-color: rgba(37,99,235,0.3);">
+        <h4>Web Platform</h4>
+        <p style="margin-bottom:0.8rem;">(Dashboard & Landing)</p>
+        <p>Monitorea en tiempo real, analiza performance y muestra métricas a stakeholders.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2rem;" class="fade-up">
+      <div style="display:inline-block;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:10px;padding:1.2rem 2rem;font-size:0.85rem;color:#1E40AF;max-width:600px;">
+        <strong>Flujo bidireccional:</strong> Los agentes envían telemetría al dashboard via gRPC/API. El dashboard puede enviar actualizaciones de configuración de vuelta a Agent OS para ajustes remotos.
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="glow-divider">
+
+<!-- 11. BUSINESS MODEL -->
+<section id="business">
+  <div class="container">
+    <h2 class="section-title fade-up">Modelo de Negocio</h2>
+    <p class="section-subtitle fade-up">Múltiples fuentes de ingreso con path claro de servicio a SaaS.</p>
+    <div class="biz-grid fade-up">
+      <div class="biz-card">
+        <h4>Implementación</h4>
+        <div class="biz-amount">$150 — $500</div>
+        <p>Fee único por setup, configuración inicial y entrenamiento del agente.</p>
+      </div>
+      <div class="biz-card">
+        <h4>Suscripción Mensual</h4>
+        <div class="biz-amount">$40 — $1,000+</div>
+        <p>Ingreso recurrente según plan. Escalable con el crecimiento del cliente.</p>
+      </div>
+      <div class="biz-card">
+        <h4>Desarrollo Custom</h4>
+        <div class="biz-amount">$100 — $500</div>
+        <p>Por automatización adicional o integración personalizada solicitada.</p>
+      </div>
+      <div class="biz-card">
+        <h4>Marketplace</h4>
+        <div class="biz-amount">Revenue Share</div>
+        <p>Templates y skills de agentes creados por la comunidad (futuro).</p>
+      </div>
+    </div>
+    <div class="biz-flow fade-up">
+      <div class="biz-flow-step">Servicio</div>
+      <div class="biz-flow-arrow">&rarr;</div>
+      <div class="biz-flow-step">Producto</div>
+      <div class="biz-flow-arrow">&rarr;</div>
+      <div class="biz-flow-step">SaaS</div>
+      <div class="biz-flow-arrow">&rarr;</div>
+      <div class="biz-flow-step">Scale</div>
+    </div>
+  </div>
+</section>
+
+<!-- 12. FOOTER -->
+<footer>
+  <div class="footer-brand">PRAXIS<span>GEN</span>AI</div>
+  <p class="footer-tagline">"Monitoreo inteligente para agentes inteligentes"</p>
+  <p style="margin-bottom:1.5rem;font-size:0.85rem;">
+    <a href="https://praxisgenai.com" target="_blank">praxisgenai.com</a>
+  </p>
+  <p class="footer-copy">PRAXISGENAI &copy; 2026 — Todos los derechos reservados.</p>
+</footer>
+
+<!-- JARVIS CHAT WIDGET -->
+<button class="jarvis-fab" id="jarvisFab" aria-label="Abrir chat con Jarvis">&#129302;</button>
+<div class="jarvis-panel" id="jarvisPanel">
+  <div class="jarvis-header">
+    <div class="jarvis-header-title">&#129302; Jarvis &mdash; PraxisGenAI</div>
+    <button class="jarvis-header-close" id="jarvisClose" aria-label="Cerrar chat">&times;</button>
+  </div>
+  <div class="jarvis-messages" id="jarvisMessages">
+    <div class="jarvis-typing" id="jarvisTyping">
+      <div class="jarvis-typing-dot"></div>
+      <div class="jarvis-typing-dot"></div>
+      <div class="jarvis-typing-dot"></div>
+    </div>
+  </div>
+  <div class="jarvis-input-area">
+    <textarea class="jarvis-input" id="jarvisInput" placeholder="Escribí tu mensaje..." rows="1"></textarea>
+    <button class="jarvis-send" id="jarvisSend" aria-label="Enviar">&#9654;</button>
+  </div>
+</div>
+
+<!-- SCRIPTS -->
+<script>
+  // ========== CONFIGURABLE BACKEND URL ==========
+  const JARVIS_API_URL = 'http://127.0.0.1:8765';
+
+  // ========== SCROLL ANIMATION ==========
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Smooth scroll for nav links (both desktop and mobile)
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Nav shadow on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 20) {
+      nav.style.boxShadow = '0 4px 30px rgba(0,0,0,0.3)';
+    } else {
+      nav.style.boxShadow = 'none';
+    }
+  });
+
+  // ========== HAMBURGER MENU ==========
+  (function() {
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      mobileNav.classList.toggle('open');
+      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+    });
+
+    // Close on link click
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Close on overlay click (outside links)
+    mobileNav.addEventListener('click', (e) => {
+      if (e.target === mobileNav) {
+        hamburger.classList.remove('active');
+        mobileNav.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  })();
+
+  // ========== JARVIS CHAT WIDGET ==========
+  (function() {
+    const fab = document.getElementById('jarvisFab');
+    const panel = document.getElementById('jarvisPanel');
+    const closeBtn = document.getElementById('jarvisClose');
+    const messagesEl = document.getElementById('jarvisMessages');
+    const typingEl = document.getElementById('jarvisTyping');
+    const input = document.getElementById('jarvisInput');
+    const sendBtn = document.getElementById('jarvisSend');
+
+    const STORAGE_KEY = 'jarvis_chat_history';
+    const WELCOME_MSG = 'Hola, soy Jarvis. \u00bfEn qu\u00e9 puedo ayudarte?';
+    let isOpen = false;
+    let isSending = false;
+    let hasShownWelcome = false;
+
+    // --- Markdown-like formatting ---
+    function formatMessage(text) {
+      if (!text) return '';
+      let html = text
+        // Escape HTML
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        // Bold **text**
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        // Unordered lists (- item or * item)
+        .replace(/^[\-\*]\s+(.+)$/gm, '<li>$1</li>')
+        // Ordered lists (1. item)
+        .replace(/^\d+\.\s+(.+)$/gm, '<li>$1</li>')
+        // Line breaks
+        .replace(/\n/g, '<br>');
+
+      // Wrap consecutive <li> in <ul>
+      html = html.replace(/((?:<li>.*?<\/li>(?:<br>)?)+)/g, function(match) {
+        const cleaned = match.replace(/<br>/g, '');
+        return '<ul>' + cleaned + '</ul>';
+      });
+
+      return html;
+    }
+
+    // --- Chat history ---
+    function loadHistory() {
+      try {
+        const data = sessionStorage.getItem(STORAGE_KEY);
+        return data ? JSON.parse(data) : [];
+      } catch { return []; }
+    }
+
+    function saveHistory(history) {
+      try {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+      } catch {}
+    }
+
+    function addMessage(role, text, fileUrl) {
+      const history = loadHistory();
+      history.push({ role, text, file: fileUrl || null });
+      saveHistory(history);
+      renderMessage(role, text, fileUrl);
+    }
+
+    function renderMessage(role, text, fileUrl) {
+      const msg = document.createElement('div');
+      msg.className = 'jarvis-msg ' + (role === 'user' ? 'user' : 'bot');
+
+      if (role === 'user') {
+        msg.textContent = text;
+      } else {
+        msg.innerHTML = formatMessage(text);
+        if (fileUrl) {
+          const link = document.createElement('a');
+          link.className = 'jarvis-download';
+          link.href = fileUrl;
+          link.target = '_blank';
+          link.download = '';
+          link.innerHTML = '&#128229; Descargar archivo';
+          msg.appendChild(document.createElement('br'));
+          msg.appendChild(link);
+        }
+      }
+
+      // Insert before typing indicator
+      messagesEl.insertBefore(msg, typingEl);
+      scrollToBottom();
+    }
+
+    function renderHistory() {
+      // Clear existing messages (keep typing indicator)
+      const existing = messagesEl.querySelectorAll('.jarvis-msg');
+      existing.forEach(el => el.remove());
+
+      const history = loadHistory();
+      history.forEach(entry => {
+        renderMessage(entry.role, entry.text, entry.file);
+      });
+
+      if (history.length > 0) hasShownWelcome = true;
+    }
+
+    function scrollToBottom() {
+      requestAnimationFrame(() => {
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      });
+    }
+
+    function showTyping() { typingEl.classList.add('visible'); scrollToBottom(); }
+    function hideTyping() { typingEl.classList.remove('visible'); }
+
+    // --- Send message ---
+    async function sendMessage() {
+      const text = input.value.trim();
+      if (!text || isSending) return;
+
+      addMessage('user', text);
+      input.value = '';
+      input.style.height = 'auto';
+      isSending = true;
+      sendBtn.disabled = true;
+      showTyping();
+
+      try {
+        const response = await fetch(JARVIS_API_URL + '/api/query', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: text, persona: 'jarvis' })
+        });
+
+        if (!response.ok) throw new Error('Error del servidor: ' + response.status);
+
+        const data = await response.json();
+        hideTyping();
+
+        const replyText = data.response || data.text || data.message || 'Sin respuesta del servidor.';
+        const fileUrl = data.file || null;
+        addMessage('bot', replyText, fileUrl);
+      } catch (err) {
+        hideTyping();
+        addMessage('bot', '**Error de conexi\u00f3n:** No pude contactar al servidor. Verific\u00e1 que Jarvis est\u00e9 corriendo en ' + JARVIS_API_URL);
+      }
+
+      isSending = false;
+      sendBtn.disabled = false;
+      input.focus();
+    }
+
+    // --- Toggle panel ---
+    function openPanel() {
+      panel.classList.add('open');
+      isOpen = true;
+      input.focus();
+
+      if (!hasShownWelcome) {
+        hasShownWelcome = true;
+        addMessage('bot', WELCOME_MSG);
+      }
+
+      scrollToBottom();
+    }
+
+    function closePanel() {
+      panel.classList.remove('open');
+      isOpen = false;
+    }
+
+    // --- Events ---
+    fab.addEventListener('click', () => {
+      if (isOpen) closePanel();
+      else openPanel();
+    });
+
+    closeBtn.addEventListener('click', closePanel);
+
+    sendBtn.addEventListener('click', sendMessage);
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    // Auto-resize textarea
+    input.addEventListener('input', () => {
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 80) + 'px';
+    });
+
+    // --- Init: load history ---
+    renderHistory();
+  })();
+</script>
+
+</body>
+</html>
